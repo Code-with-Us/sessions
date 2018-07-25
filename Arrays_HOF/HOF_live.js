@@ -1,23 +1,26 @@
-/*=============================================
-=              Populating an Array            =
-=============================================*/
+// #region map 
 
 /*----------  Using loops  ----------*/
-let randomNum = [];
 
+let randomNum = [];
 for (let i = 0; i < 100; i++) {
     randomNum.push(Math.floor(Math.random() * 100));
 }
 
+[...Array(100)].forEach(_ => randomNum.push(Math.floor(Math.random() * 100)));
+
+console.log(randomNum.length)
+randomNum
+
 
 /*----------  Using .map()  ----------*/
 
+const anotherRandNum = [...Array(100)].map(_ => Math.floor(Math.random() * 100));
+anotherRandNum
 
+// #endregion
 
-
-/*=============================================
-=          Checking data - absolute           =
-=============================================*/
+// #region every
 
 /*----------  Using loops  ----------*/
 function checkAllNums(nums) {
@@ -30,15 +33,34 @@ function checkAllNums(nums) {
     return true;
 }
 
+// Check works for all numbers
+const allNums = checkAllNums(randomNum);
+allNums
+
+// Check for one non-number
+randomNum[0] = 'string';
+randomNum
+const allNums2 = checkAllNums(randomNum);
+allNums2
+
 /*----------  Using .every()  ----------*/
 
+// Check works for all numbers
+const allNums3 = anotherRandNum.every(num => typeof num === 'number');
+allNums3
 
+// Check for one non-number
+anotherRandNum[0] = 'string';
+const allNums4 = anotherRandNum.every(num => typeof num === 'number');
+allNums4
 
-/*=============================================
-=         Checking data - contains            =
-=============================================*/
+// #endregion
+
+// #region some
 
 /*----------  Using loops  ----------*/
+const randNum3 = [...Array(100)].map(_ => Math.floor(Math.random() * 100));
+
 function anyLessThanTen(nums) {
     for (const num of nums) {
         if (num < 10) {
@@ -49,12 +71,27 @@ function anyLessThanTen(nums) {
     return false;
 }
 
+const someLow = anyLessThanTen(randNum3);
+someLow
+
+// Check for no value below 10
+const randNum4 = [...Array(100)].map(_ => Math.floor(10 + Math.random() * 100));
+const nonLow = anyLessThanTen(randNum4)
+nonLow
+
 /*----------  Using .some()  ----------*/
+const randNum5 = [...Array(100)].map(_ => Math.floor(Math.random() * 100));
+const someLow2 = randNum5.some(num => num < 10);
+someLow
 
+// Check for no value below 10
+const randNum6 = [...Array(100)].map(_ => Math.floor(10 + Math.random() * 100));
+const nonLow2 = randNum6.some(num => num < 10);
+nonLow2
 
-/*=============================================
-=                   Filter data               =
-=============================================*/
+// #endregion
+
+// #region filter
 
 let searchTerms = [
     'Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen',
@@ -88,12 +125,16 @@ function filterAs(list) {
     return found;
 }
 
+const allAs = filterAs(searchTerms);
+allAs
+
 /*----------  Using .filter()  ----------*/
+const allAs2 = searchTerms.filter(item => /^a/i.test(item));
+allAs2
 
+// #endregion
 
-/*=============================================
-=                   Find data                 =
-=============================================*/
+// #region find
 
 /*----------  Using loops  ----------*/
 function findTerm(query, list) {
@@ -107,27 +148,72 @@ function findTerm(query, list) {
     return undefined;
 }
 
-/*----------  Using .find()  ----------*/
+const search1 = findTerm('money', searchTerms);
+search1
 
+const search2 = findTerm('not in there', searchTerms);
+search2
 
-/*=============================================
-=                 Repeat operation            =
-=============================================*/
+/*----------  Usign .find()  ----------*/
+let query = { term: 'money' };
 
-/*----------  Using loops  ----------*/
+// arrow
+const search3 = searchTerms.find(item => item.toLowerCase() === 'money'.toLowerCase());
+search3
 
-for (let i = 0; i < count.length; i++) {
-    count[i] = Math.pow(count[i], 2);
+// thisArg - Cannot use arrows
+const search4 = searchTerms.find(function (item) { return item.toLocaleLowerCase() === this.term.toLowerCase() }, query);
+search4
+
+// Passing function
+function findTerm2(item) {
+    return item.toLowerCase() === this.term.toLowerCase();
 }
 
-/*----------  Using .forEach()  ----------*/
+const search5 = searchTerms.find(findTerm2, query);
+search5
 
+// #endregion
 
-/*=============================================
-=            Compute your data            =
-=============================================*/
+// #region forEach
 
 /*----------  Using loops  ----------*/
+let count = [...Array(10)].map((_, i) => i + 1);
+count
+
+for (let i = 0; i < count.length; i++) {
+    console.log(count[i]);
+}
+count
+
+/*----------  Using .forEach()  ----------*/
+// Inline
+count.forEach(item => console.log(item));
+
+// Passing functions
+function log(item) {
+    console.log(item);
+}
+
+count.forEach(log);
+
+// Using this
+function logThis(_, index) {
+    console.log(this[index])
+}
+
+count.forEach(logThis, count);
+
+let count2 = [...Array(10)].map((_, i) => i * 2);
+count2.forEach(logThis, count2);
+
+// #endregion
+
+// #region reduce
+
+/*----------  Using loops  ----------*/
+const cost = [...Array(10)].map((_, i) => i + 1);
+cost
 
 function sum(values) {
     let sum = 0;
@@ -139,12 +225,33 @@ function sum(values) {
     return sum;
 }
 
+const total = sum(cost);
+total
+
 /*----------  Using .reduce()  ----------*/
+// Sum
+const total2 = cost.reduce((acc, value) => acc + value);
+total2
 
+// Initial value - flatten
+const multiArr = [
+    1,
+    [2, 1],
+    1,
+    [3, 1, 1],
+    1,
+    1,
+    [4, 1, 1, 1, 1]
+];
 
-/*=============================================
-=                     Sort data               =
-=============================================*/
+const flattened = multiArr.reduce((acc, value) => acc.concat(value), []);
+flattened
+
+// #endregion
+
+// #region sort
+const mixedNums = [...Array(5)].map(_ => Math.floor(Math.random() * 100));
+mixedNums
 
 /*----------  Using loops  ----------*/
 // Bubble sort
@@ -161,6 +268,9 @@ function bubbleSort(nums) {
 
     return nums;
 }
+
+const sortedNums = bubbleSort(mixedNums);
+sortedNums
 
 // Quick sort
 function quickSort(nums) {
@@ -220,4 +330,17 @@ function quickSort(nums) {
     return nums;
 }
 
+const sortedNums2 =  quickSort(mixedNums)
+sortedNums2
+
 /*----------  Using .sort()  ----------*/
+const sortedNums3 = mixedNums.sort((a, b) => a-b);
+sortedNums3
+
+const sortedNums4 = mixedNums.sort((a, b) => b-a)
+sortedNums4
+
+const revTerms = searchTerms.sort((a,b) => b.localeCompare(a));
+revTerms
+
+// #endregion
