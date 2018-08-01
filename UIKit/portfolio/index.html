@@ -1,22 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.9/css/uikit.min.css" />
     <title>Portfolio</title>
 </head>
+
 <body>
-    <header>
-        <nav>
+    <header id="header">
+        <nav class="uk-padding-small" uk-navbar>
             <!-- Logo: left side -->
-            <img src="img/logo.png" alt="logo">
+            <a href=""><img class="uk-navbar-item" src="img/logo.png" alt="logo"></a>
 
             <!-- Title: Right side -->
-            <div>
-                <h1>Jane Doette</h1>
-                <p>Front-End Ninja</p>
+            <div class="uk-flex uk-flex-column uk-flex-center">
+                <h1 class="uk-logo uk-margin-remove">Jane Doette</h1>
+                <p class="uk-navbar-subtitle uk-margin-remove">Front-End Ninja</p>
             </div>
+
+            <a class="uk-navbar-toggle uk-navbar-right uk-hidden@m" href="#" uk-navbar-toggle-icon></a>
+            <div uk-dropdown="mode: click; boundary: #header; boundary-align: true; pos: bottom-right; offset: 0; animation: uk-animation-slide-top-medium">
+                <ul class="uk-nav uk-dropdown-nav">
+                    <li class="uk-navbar-item uk-link-muted"><a href="">About</a></li>
+                    <li class="uk-navbar-item uk-link-muted"><a href="">Featured</a></li>
+                    <li class="uk-navbar-item uk-link-muted"><a href="">Contact</a></li>
+                </ul>
+            </div>
+
+            <ul class="uk-nav uk-navbar-right uk-visible@m">
+                <li class="uk-navbar-item uk-link-muted"><a href="">About</a></li>
+                <li class="uk-navbar-item uk-link-muted"><a href="">Featured</a></li>
+                <li class="uk-navbar-item uk-link-muted"><a href="">Contact</a></li>
+            </ul>
+
         </nav>
     </header>
     <main>
@@ -25,20 +45,20 @@
             <img src="img/big_img.png" alt="hero image">
         </section>
         <!-- Featured work -->
-        <section>
+        <section class="uk-padding">
             <h2>Featured Work</h2>
             <!-- Projects -->
-            <div>
-                
+            <div class="uk-text-center uk-child-width-1-3@l uk-child-width-1-2@m" uk-grid>
+
                 <!-- project 1 -->
                 <div>
-                    <img src="img/img1.png" alt="porject 1">
+                    <img uk-parallax="grayscale: 0%, 100%" src="img/img1.png" alt="porject 1">
                     <h3>Appify</h3>
                     <a href=""><p>https://github.com/udacity/Appify</p></a>
                 </div>
 
                 <!-- project 2 -->
-                <div>
+                <div uk-parallax="x: -100%, 0%">
                     <img src="img/img2.png" alt="porject 1">
                     <h3>Sunflower</h3>
                     <a href=""><p>https://github.com/udacity/Sunflower</p></a>
@@ -48,10 +68,15 @@
                 <div>
                     <img src="img/img3.png" alt="porject 1">
                     <h3>Bokeh</h3>
-                    <a href=""><p>https://github.com/udacity/Bokeh</p></a>
+                    <a href=""><span class="uk-icon-button" uk-icon="icon: github; ratio: 2"></span></a>
                 </div>
             </div>
         </section>
     </main>
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
+
 </body>
+
 </html>
